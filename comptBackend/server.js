@@ -3,12 +3,18 @@ const express = require('express');
 const cors    = require('cors');
 const app = express();
 
-const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL, 'http://localhost:5173']
-  : ['http://localhost:5173'];
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://comptappbj.netlify.app',
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+];
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, cb) => {
+    // Autoriser les requêtes sans origin (ex: Render health checks, curl)
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error('CORS non autorisé : ' + origin));
+  },
   credentials: true,
 }));
 
