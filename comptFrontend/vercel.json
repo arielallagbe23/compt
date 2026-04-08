@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/auth/:path*",        "destination": "https://compt.onrender.com/auth/:path*" },
+    { "source": "/companies/:path*",   "destination": "https://compt.onrender.com/companies/:path*" },
+    { "source": "/accounting/:path*",  "destination": "https://compt.onrender.com/accounting/:path*" },
+    { "source": "/super-admin/:path*", "destination": "https://compt.onrender.com/super-admin/:path*" },
+    { "source": "/profile/:path*",     "destination": "https://compt.onrender.com/profile/:path*" },
+    { "source": "/(.*)",               "destination": "/index.html" }
+  ]
+}
