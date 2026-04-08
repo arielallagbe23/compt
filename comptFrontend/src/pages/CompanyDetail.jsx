@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { HiArrowUp, HiArrowDown, HiTrash, HiScale } from 'react-icons/hi'
+import { HiArrowUp, HiArrowDown, HiTrash, HiScale, HiSwitchVertical } from 'react-icons/hi'
 import Navbar from '../components/Navbar'
 import { companies as companiesApi, transactions as txApi } from '../api'
 import { useAuth } from '../context/AuthContext'
@@ -62,6 +62,8 @@ export default function CompanyDetail() {
   const [page,          setPage]          = useState(1)
   const [deleting,      setDeleting]      = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [togglingId,    setTogglingId]    = useState(null)
+  const [deletingTxId,  setDeletingTxId]  = useState(null)
 
   useEffect(() => {
     companiesApi.getOne(id)
@@ -96,6 +98,31 @@ export default function CompanyDetail() {
       setError(err.message)
     } finally {
       setSaving(false)
+    }
+  }
+
+  async function toggleTxType(tx) {
+    setTogglingId(tx.id)
+    const newType = tx.type === 'recette' ? 'depense' : 'recette'
+    try {
+      const updated = await txApi.patch(id, tx.id, { type: newType })
+      setTxList((prev) => prev.map((t) => t.id === tx.id ? { ...t, type: updated.type } : t))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setTogglingId(null)
+    }
+  }
+
+  async function deleteTx(txId) {
+    setDeletingTxId(txId)
+    try {
+      await txApi.delete(id, txId)
+      setTxList((prev) => prev.filter((t) => t.id !== txId))
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setDeletingTxId(null)
     }
   }
 
@@ -362,6 +389,7 @@ export default function CompanyDetail() {
                       <th>Montant (original)</th>
                       <th>Équiv. F CFA</th>
                       <th>Description</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -434,6 +462,31 @@ export default function CompanyDetail() {
                               {!tx.description && !isMomo && !isCrypto && (
                                 <span style={{ color: 'var(--text-3)' }}>—</span>
                               )}
+                            </div>
+                          </td>
+                          <td>
+                            <div style={{ display: 'flex', gap: '0.375rem' }}>
+                              <button
+                                className="row-action-btn"
+                                title={tx.type === 'recette' ? 'Convertir en dépense' : 'Convertir en recette'}
+                                onClick={() => toggleTxType(tx)}
+                                disabled={togglingId === tx.id}
+                              >
+                                {togglingId === tx.id
+                                  ? <span className="spin" style={{ width: 10, height: 10 }} />
+                                  : <HiSwitchVertical size={13} />}
+                              </button>
+                              <button
+                                className="row-action-btn"
+                                title="Supprimer"
+                                style={{ color: 'var(--danger)' }}
+                                onClick={() => deleteTx(tx.id)}
+                                disabled={deletingTxId === tx.id}
+                              >
+                                {deletingTxId === tx.id
+                                  ? <span className="spin" style={{ width: 10, height: 10 }} />
+                                  : <HiTrash size={13} />}
+                              </button>
                             </div>
                           </td>
                         </tr>

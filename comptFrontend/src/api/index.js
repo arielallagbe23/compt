@@ -80,4 +80,15 @@ export const transactions = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+
+  patch: (companyId, txId, data) =>
+    request(`/companies/${companyId}/transactions/${txId}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
+
+  delete: (companyId, txId) =>
+    request(`/companies/${companyId}/transactions/${txId}`, {
+      method: 'DELETE',
+    }),
 }
