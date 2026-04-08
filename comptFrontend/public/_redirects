@@ -1,6 +1,22 @@
+# ── Routes React (doivent passer avant les proxys API) ──────────────────────
+/                       /index.html  200
+/login                  /index.html  200
+/inscription            /index.html  200
+/dashboard              /index.html  200
+/comptabilite           /index.html  200
+/aml                    /index.html  200
+/profil                 /index.html  200
+/changer-mot-de-passe   /index.html  200
+/super-admin            /index.html  200
+/verify/:token          /index.html  200
+/entreprises/*          /index.html  200
+
+# ── Proxy API vers Render ────────────────────────────────────────────────────
 /auth/*         https://compt.onrender.com/auth/:splat         200
 /companies/*    https://compt.onrender.com/companies/:splat    200
 /accounting/*   https://compt.onrender.com/accounting/:splat   200
 /super-admin/*  https://compt.onrender.com/super-admin/:splat  200
 /profile/*      https://compt.onrender.com/profile/:splat      200
+
+# ── Fallback React ───────────────────────────────────────────────────────────
 /*              /index.html                                     200
