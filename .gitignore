@@ -1,0 +1,21 @@
+# Claude Code
+.claude/
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment variables — NE JAMAIS POUSSER
+.env
+*/.env
+
+# Build output
+comptFrontend/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

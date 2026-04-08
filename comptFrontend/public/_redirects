@@ -1,0 +1,6 @@
+/auth/*         https://TON_BACKEND.onrender.com/auth/:splat         200
+/companies/*    https://TON_BACKEND.onrender.com/companies/:splat    200
+/accounting/*   https://TON_BACKEND.onrender.com/accounting/:splat   200
+/super-admin/*  https://TON_BACKEND.onrender.com/super-admin/:splat  200
+/profile/*      https://TON_BACKEND.onrender.com/profile/:splat      200
+/*              /index.html                                           200
