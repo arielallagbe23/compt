@@ -81,10 +81,9 @@ export const transactions = {
       body: JSON.stringify(data),
     }),
 
-  patch: (companyId, txId, data) =>
-    request(`/companies/${companyId}/transactions/${txId}`, {
-      method: 'PATCH',
-      body: JSON.stringify(data),
+  toggleType: (companyId, txId) =>
+    request(`/companies/${companyId}/transactions/${txId}/toggle-type`, {
+      method: 'POST',
     }),
 
   delete: (companyId, txId) =>

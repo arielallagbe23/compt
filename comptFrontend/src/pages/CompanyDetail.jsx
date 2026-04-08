@@ -103,9 +103,8 @@ export default function CompanyDetail() {
 
   async function toggleTxType(tx) {
     setTogglingId(tx.id)
-    const newType = tx.type === 'recette' ? 'depense' : 'recette'
     try {
-      const updated = await txApi.patch(id, tx.id, { type: newType })
+      const updated = await txApi.toggleType(id, tx.id)
       setTxList((prev) => prev.map((t) => t.id === tx.id ? { ...t, type: updated.type } : t))
     } catch (err) {
       setError(err.message)

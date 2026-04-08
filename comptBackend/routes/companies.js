@@ -172,8 +172,8 @@ router.post("/:id/transactions", auth, async (req, res) => {
   }
 });
 
-// ── PATCH TRANSACTION — modifier type / montant / description ─────────────────
-router.patch("/:id/transactions/:txId", auth, async (req, res) => {
+// ── TOGGLE TYPE — recette ↔ depense ──────────────────────────────────────────
+router.post("/:id/transactions/:txId/toggle-type", auth, async (req, res) => {
   try {
     const company = await db.query(
       `SELECT id FROM companies WHERE id = $1 AND owner_id = $2`,
@@ -182,26 +182,12 @@ router.patch("/:id/transactions/:txId", auth, async (req, res) => {
     if (company.rows.length === 0)
       return res.status(404).json({ error: "Company not found" });
 
-    const allowed = ['type', 'amount', 'description', 'date'];
-    const updates = [];
-    const values  = [];
-    let idx = 1;
-
-    for (const key of allowed) {
-      if (req.body[key] !== undefined) {
-        updates.push(`${key} = $${idx++}`);
-        values.push(req.body[key]);
-      }
-    }
-    if (updates.length === 0)
-      return res.status(400).json({ error: 'Aucun champ à modifier' });
-
-    values.push(req.params.txId, req.params.id);
     const { rows } = await db.query(
-      `UPDATE transactions SET ${updates.join(', ')}
-       WHERE id = $${idx++} AND company_id = $${idx}
+      `UPDATE transactions
+       SET type = CASE WHEN type = 'recette' THEN 'depense' ELSE 'recette' END
+       WHERE id = $1 AND company_id = $2
        RETURNING *`,
-      values
+      [req.params.txId, req.params.id]
     );
     if (rows.length === 0)
       return res.status(404).json({ error: 'Transaction introuvable' });
