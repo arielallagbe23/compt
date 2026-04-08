@@ -139,9 +139,14 @@ export default function Navbar() {
                   Super Admin
                 </span>
               )}
+              <span className="user-name-full">
               {user.first_name
                 ? `${user.first_name} ${user.last_name || ''}`.trim()
                 : user.email}
+            </span>
+            <span className="user-name-short">
+              {user.first_name || user.email.split('@')[0]}
+            </span>
             </Link>
           )}
           <button className="theme-toggle" onClick={toggle} title="Changer le thème">

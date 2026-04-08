@@ -89,12 +89,12 @@ export default function Dashboard() {
                 <thead>
                   <tr>
                     <th>Nom</th>
-                    <th>Type</th>
-                    <th>Statut juridique</th>
-                    <th>Secteur</th>
-                    <th>IFU</th>
-                    <th>RCCM</th>
-                    <th>Ville</th>
+                    <th className="col-hide-mobile">Type</th>
+                    <th className="col-hide-mobile">Statut juridique</th>
+                    <th className="col-hide-tablet">Secteur</th>
+                    <th className="col-hide-tablet">IFU</th>
+                    <th className="col-hide-mobile">RCCM</th>
+                    <th className="col-hide-tablet">Ville</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -102,18 +102,18 @@ export default function Dashboard() {
                   {list.map((c) => (
                     <tr key={c.id}>
                       <td className="td-name">{c.name}</td>
-                      <td>
+                      <td className="col-hide-mobile">
                         {c.type
                           ? <span className="badge badge-neutral">{c.type}</span>
                           : <span style={{ color: 'var(--text-3)' }}>—</span>}
                       </td>
-                      <td>{c.legal_status || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
-                      <td>{c.sector     || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
-                      <td style={{ fontFamily: 'monospace', fontSize: '0.8125rem' }}>
+                      <td className="col-hide-mobile">{c.legal_status || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
+                      <td className="col-hide-tablet">{c.sector || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
+                      <td className="col-hide-tablet" style={{ fontFamily: 'monospace', fontSize: '0.8125rem' }}>
                         {c.ifu || <span style={{ color: 'var(--text-3)' }}>—</span>}
                       </td>
-                      <td>{c.rccm || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
-                      <td>{c.city || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
+                      <td className="col-hide-mobile">{c.rccm || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
+                      <td className="col-hide-tablet">{c.city || <span style={{ color: 'var(--text-3)' }}>—</span>}</td>
                       <td>
                         <button
                           className="row-action-btn"

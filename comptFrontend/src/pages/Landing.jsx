@@ -59,7 +59,7 @@ export default function Landing() {
               Gérez vos entreprises.<br />Tracez chaque transaction.
             </h1>
             <p>
-              Compt centralise la gestion de vos structures d'entreprise et de vos flux financiers — en francs CFA, en euros, en dollars et en crypto — pour produire des rapports AML impeccables.
+              Compt centralise la gestion de vos structures d'entreprise et de vos flux financiers — en francs CFA, en euros, en dollars et en crypto — pour une comptabilité claire, rigoureuse et conforme.
             </p>
             <div className="hero-cta">
               <Link to="/register" className="btn btn-dark btn-lg">Créer un compte</Link>

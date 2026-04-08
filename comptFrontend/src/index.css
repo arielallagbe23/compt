@@ -1752,6 +1752,14 @@ tbody tr:hover { background: var(--bg-2); }
    RESPONSIVE — AUTO LAYOUT MOBILE
    ════════════════════════════════════════════════════════════ */
 
+/* Nom navbar : full sur desktop, court sur mobile */
+.user-name-short { display: none; }
+.user-name-full  { display: inline; }
+
+/* Colonnes tableau masquables */
+.col-hide-mobile  { }
+.col-hide-tablet  { }
+
 /* ── Tablette 768px ── */
 @media (max-width: 768px) {
   /* Page */
@@ -1819,7 +1827,8 @@ tbody tr:hover { background: var(--bg-2); }
 
   /* Navbar */
   .navbar-inner { padding: 0 1.25rem; }
-  .user-email { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+  .user-email { max-width: 140px; overflow: hidden; text-overflow: ellipsis; }
+  .col-hide-tablet { display: none; }
 }
 
 /* ── Téléphone 480px ── */
@@ -1847,6 +1856,9 @@ tbody tr:hover { background: var(--bg-2); }
   /* Navbar */
   .navbar-inner { padding: 0 1rem; }
   .user-email { display: none; }
+  .user-name-full  { display: none; }
+  .user-name-short { display: inline; }
+  .col-hide-mobile { display: none; }
 
   /* Landing */
   .hero { padding: 3rem 0 2rem; }
