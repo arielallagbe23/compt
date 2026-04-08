@@ -162,7 +162,7 @@ router.post("/:id/transactions", auth, async (req, res) => {
         receiver_name || null, receiver_phone || null,
         from_address  || null, to_address     || null,
         tx_hash       || null, network        || null,
-        aml_score != null ? parseInt(aml_score) : null,
+        aml_score != null && aml_score !== '' ? parseInt(aml_score) : null,
       ]
     );
     res.json(result.rows[0]);
